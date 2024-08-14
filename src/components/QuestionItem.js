@@ -9,6 +9,14 @@ function QuestionItem({ question }) {
     </option>
   ));
 
+  function handleDeleteClick() {
+    onDeleteClick(id);
+  }
+  
+  function handleAnswerChange(event) {
+    onAnswerChange(id, parseInt(event.target.value));
+  }
+
   return (
     <li>
       <h4>Question {id}</h4>
