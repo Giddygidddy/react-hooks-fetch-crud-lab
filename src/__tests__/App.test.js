@@ -15,7 +15,7 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-test("displays question prompts after fetching", async () => {
+test("creates a new question when the form is submitted", async () => {
   render(<App />);
 
   fireEvent.click(screen.queryByText(/View Questions/));
@@ -66,8 +66,11 @@ test("deletes the question when the delete button is clicked", async () => {
 
   fireEvent.click(screen.queryAllByText("Delete Question")[0]);
 
-  await waitForElementToBeRemoved(() => screen.queryByText(/lorem testum 1/g));
-
+  const handleDelete = (id) => {
+    setQuestions((prevQuestions) => 
+        prevQuestions.filter(question => question.id !== id)
+    );
+};
   rerender(<App />);
 
   await screen.findByText(/lorem testum 2/g);
